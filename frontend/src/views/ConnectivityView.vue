@@ -139,8 +139,6 @@ const cacheHit = (row: Record<string, unknown>): string => {
 
 <template>
   <article class="grid">
-    <h2 class="col-span-12">PostgreSQL Connectivity Test</h2>
-
     <!-- Connection Form -->
     <div class="card col-span-12">
       <div class="card-heading">Connection Details</div>

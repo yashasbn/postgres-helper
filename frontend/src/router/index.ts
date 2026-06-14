@@ -9,12 +9,6 @@ export const getRoutes = (): RouteRecordRawCustom[] => {
   return [
     {
       path: "/",
-      name: "Home",
-      component: (): Promise<RouteComponent> => import("@/views/HomeView.vue"),
-      props: true
-    },
-    {
-      path: "/connectivity",
       name: "Connectivity",
       component: (): Promise<RouteComponent> => import("@/views/ConnectivityView.vue"),
       props: true
