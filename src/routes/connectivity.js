@@ -48,11 +48,12 @@ router.post('/api/connectivity-test', connectivityTestLimiter, async (req, res) 
     port = 5432,
     database,
     user,
+    password: bodyPassword,
     sslmode = 'require',
     connectTimeoutMs = 7000,
   } = req.body || {};
 
-  const password = process.env.CONNECTIVITY_DEFAULT_PASSWORD;
+  const password = bodyPassword || process.env.CONNECTIVITY_DEFAULT_PASSWORD;
 
   if (!database || !user) {
     return res.status(400).json({
@@ -86,9 +87,9 @@ router.post('/api/connectivity-test', connectivityTestLimiter, async (req, res) 
   }
 
   if (!password) {
-    return res.status(500).json({
+    return res.status(400).json({
       ok: false,
-      error: 'CONNECTIVITY_DEFAULT_PASSWORD env var is not set on the server',
+      error: 'Password is required',
     });
   }
 
@@ -171,11 +172,12 @@ router.post('/api/postgres-metrics', connectivityTestLimiter, async (req, res) =
     port = 5432,
     database,
     user,
+    password: bodyPassword,
     sslmode = 'require',
     connectTimeoutMs = 7000,
   } = req.body || {};
 
-  const password = process.env.CONNECTIVITY_DEFAULT_PASSWORD;
+  const password = bodyPassword || process.env.CONNECTIVITY_DEFAULT_PASSWORD;
 
   if (!database || !user) {
     return res.status(400).json({
@@ -185,9 +187,9 @@ router.post('/api/postgres-metrics', connectivityTestLimiter, async (req, res) =
   }
 
   if (!password) {
-    return res.status(500).json({
+    return res.status(400).json({
       ok: false,
-      error: 'CONNECTIVITY_DEFAULT_PASSWORD env var is not set on the server',
+      error: 'Password is required',
     });
   }
 
@@ -474,11 +476,12 @@ router.post('/api/postgres-schemas', connectivityTestLimiter, async (req, res) =
     port = 5432,
     database,
     user,
+    password: bodyPassword,
     sslmode = 'require',
     connectTimeoutMs = 7000,
   } = req.body || {};
 
-  const password = process.env.CONNECTIVITY_DEFAULT_PASSWORD;
+  const password = bodyPassword || process.env.CONNECTIVITY_DEFAULT_PASSWORD;
 
   if (!user) {
     return res.status(400).json({
@@ -488,9 +491,9 @@ router.post('/api/postgres-schemas', connectivityTestLimiter, async (req, res) =
   }
 
   if (!password) {
-    return res.status(500).json({
+    return res.status(400).json({
       ok: false,
-      error: 'CONNECTIVITY_DEFAULT_PASSWORD env var is not set on the server',
+      error: 'Password is required',
     });
   }
 
@@ -639,11 +642,12 @@ router.post('/api/postgres-schema-metrics', connectivityTestLimiter, async (req,
     database,
     schema = 'public',
     user,
+    password: bodyPassword,
     sslmode = 'require',
     connectTimeoutMs = 7000,
   } = req.body || {};
 
-  const password = process.env.CONNECTIVITY_DEFAULT_PASSWORD;
+  const password = bodyPassword || process.env.CONNECTIVITY_DEFAULT_PASSWORD;
 
   if (!database || !user) {
     return res.status(400).json({
@@ -653,9 +657,9 @@ router.post('/api/postgres-schema-metrics', connectivityTestLimiter, async (req,
   }
 
   if (!password) {
-    return res.status(500).json({
+    return res.status(400).json({
       ok: false,
-      error: 'CONNECTIVITY_DEFAULT_PASSWORD env var is not set on the server',
+      error: 'Password is required',
     });
   }
 
