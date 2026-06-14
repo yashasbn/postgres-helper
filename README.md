@@ -129,6 +129,6 @@ npm test
 
 ---
 
-## 📝 License
-
-This project is licensed under the MIT License.
+## 📄 License
+Copyright © 2026 yashasbn.  
+This project is open-source and licensed under the [MIT License](LICENSE).
