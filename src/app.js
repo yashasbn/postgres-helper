@@ -4,7 +4,6 @@ import { dirname, join } from 'path';
 import { existsSync } from 'fs';
 import compression from 'compression';
 import cors from 'cors';
-import client from 'prom-client';
 import rateLimit from 'express-rate-limit';
 import connectivityRoutes from './routes/connectivity.js';
 
@@ -56,10 +55,6 @@ const apiLimiter = rateLimit({
   legacyHeaders: false,
 });
 
-// Prometheus metrics setup
-const collectDefaultMetrics = client.collectDefaultMetrics;
-collectDefaultMetrics();
-
 // Health check
 app.get('/health', (req, res) => {
   res.status(200).send('OK');
@@ -72,17 +67,6 @@ app.get('/debug', (req, res) => {
     xff: req.headers['x-forwarded-for'] || null,
     trustProxy: app.get('trust proxy'),
   });
-});
-
-// Prometheus metrics endpoint
-app.get('/prometheus', async (req, res) => {
-  try {
-    res.set('Content-Type', client.register.contentType);
-    res.end(await client.register.metrics());
-  } catch (ex) {
-    console.error('Error generating Prometheus metrics', ex);
-    res.status(500).end('Internal Server Error');
-  }
 });
 
 app.use('/api', apiLimiter);

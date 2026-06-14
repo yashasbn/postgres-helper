@@ -18,8 +18,7 @@
     "express-session": "^1.19.0",
     "openid-client": "^5.7.0",
     "pg": "^8.17.1",
-    "ping": "^1.0.0",
-    "prom-client": "^15.1.0"
+    "ping": "^1.0.0"
   },
   "devDependencies": {
     "jest": "^29.7.0",

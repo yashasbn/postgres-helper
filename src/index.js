@@ -1,7 +1,6 @@
 import 'dotenv/config';
 import app from './app.js';
 import express from 'express';
-import client from 'prom-client';
 
 process.on('uncaughtException', (err) => {
   console.error('Uncaught exception:', err);
@@ -26,16 +25,6 @@ const metricsApp = express();
 
 metricsApp.get('/health', (req, res) => {
   res.status(200).send('OK');
-});
-
-metricsApp.get('/prometheus', async (req, res) => {
-  try {
-    res.set('Content-Type', client.register.contentType);
-    res.end(await client.register.metrics());
-  } catch (ex) {
-    console.error('Error generating Prometheus metrics', ex);
-    res.status(500).end('Internal Server Error');
-  }
 });
 
 metricsApp.listen(metricsPort, () => {

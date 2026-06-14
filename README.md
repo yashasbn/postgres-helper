@@ -40,7 +40,6 @@ This project is split into two primary components:
 - **Schema Analyzer**: Discover databases and schemas dynamically to view table stats (live/dead tuples, sequential/index scans, sizes) and index-level details.
 - **Dynamic Credentials**: The application does not rely on hardcoded environment variables for passwords; credentials are passed dynamically and securely per session.
 - **Rate Limiting**: Built-in API protection via `express-rate-limit`.
-- **Prometheus Exporter**: Serves metrics on standard `/prometheus` endpoints for system monitoring.
 
 ---
 
@@ -94,7 +93,6 @@ Create a `.env` file in the backend root directory (based on `.env.sample`).
 
 ```env
 PORT=8080
-METRICS_PORT=44420
 CORS_ORIGIN=http://localhost:3000
 API_RATE_LIMIT_WINDOW_MS=900000
 API_RATE_LIMIT_MAX=1000
@@ -110,7 +108,7 @@ From the `postgres-helper` root directory:
 ```bash
 node src/index.js
 ```
-The backend will run on port `8080` (API) and port `44420` (Prometheus metrics/health).
+The backend will run on port `8080` (API).
 
 ### 2. Start the Frontend Development Server
 
@@ -119,19 +117,6 @@ Open a new terminal window, navigate to the `frontend` directory, and run:
 npm run dev
 ```
 The Vite development server will start on `http://localhost:3000/` and automatically proxy `/api` requests to the backend server.
-
----
-
-## 🔌 API Reference
-
-The backend provides several core endpoints:
-
-- `POST /api/connectivity-test`: Validates standard connection parameters and returns basic host details.
-- `POST /api/postgres-metrics`: Fetches deep server-level statistics, locks, and active sessions.
-- `POST /api/postgres-schemas`: Discovers available databases and enumerates schemas.
-- `POST /api/postgres-schema-metrics`: Fetches detailed table and index statistics for a specific schema.
-- `GET /health`: Basic health check endpoint.
-- `GET /prometheus`: Exports application metrics for Prometheus scraping.
 
 ---
 
