@@ -1,12 +1,4 @@
-import { configure, defineRule } from "vee-validate";
-import { required, min_value, email } from "@vee-validate/rules";
-
-export const setupValidation = (): void => {
-  configure({
-    validateOnInput: true
-  });
-
-  defineRule("required", required);
-  defineRule("min_value", min_value);
-  defineRule("email", email);
+// No form validation library needed — validation is handled natively via HTML5 constraints.
+export const setupValidation = () => {
+  // no-op: vee-validate has been removed; use native HTML5 validation instead
 };
