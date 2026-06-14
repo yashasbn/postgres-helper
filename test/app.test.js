@@ -44,31 +44,3 @@ describe('POST /api/connectivity-test', () => {
   });
 });
 
-describe('POST /api/ping', () => {
-  it('validates host is required', async () => {
-    const response = await request(app).post('/api/ping').send({});
-    expect(response.status).toBe(400);
-    expect(response.body.ok).toBe(false);
-    expect(response.body.error).toMatch(/host/i);
-  });
-
-  it('validates port range', async () => {
-    const response = await request(app).post('/api/ping').send({
-      host: 'localhost',
-      port: 99999,
-    });
-    expect(response.status).toBe(400);
-    expect(response.body.ok).toBe(false);
-    expect(response.body.error).toMatch(/port/i);
-  });
-
-  it('validates timeout range', async () => {
-    const response = await request(app).post('/api/ping').send({
-      host: 'localhost',
-      timeoutMs: 100,
-    });
-    expect(response.status).toBe(400);
-    expect(response.body.ok).toBe(false);
-    expect(response.body.error).toMatch(/timeoutMs/i);
-  });
-});

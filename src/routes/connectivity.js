@@ -48,12 +48,10 @@ router.post('/api/connectivity-test', connectivityTestLimiter, async (req, res) 
     port = 5432,
     database,
     user,
-    password: bodyPassword,
+    password,
     sslmode = 'require',
     connectTimeoutMs = 7000,
   } = req.body || {};
-
-  const password = bodyPassword || process.env.CONNECTIVITY_DEFAULT_PASSWORD;
 
   if (!database || !user) {
     return res.status(400).json({
@@ -83,13 +81,6 @@ router.post('/api/connectivity-test', connectivityTestLimiter, async (req, res) 
     return res.status(400).json({
       ok: false,
       error: `Invalid sslmode: ${sslmode}. Allowed values: disable, require, verify-ca, verify-full`,
-    });
-  }
-
-  if (!password) {
-    return res.status(400).json({
-      ok: false,
-      error: 'Password is required',
     });
   }
 
@@ -172,24 +163,15 @@ router.post('/api/postgres-metrics', connectivityTestLimiter, async (req, res) =
     port = 5432,
     database,
     user,
-    password: bodyPassword,
+    password,
     sslmode = 'require',
     connectTimeoutMs = 7000,
   } = req.body || {};
-
-  const password = bodyPassword || process.env.CONNECTIVITY_DEFAULT_PASSWORD;
 
   if (!database || !user) {
     return res.status(400).json({
       ok: false,
       error: 'database and user are required',
-    });
-  }
-
-  if (!password) {
-    return res.status(400).json({
-      ok: false,
-      error: 'Password is required',
     });
   }
 
@@ -476,24 +458,15 @@ router.post('/api/postgres-schemas', connectivityTestLimiter, async (req, res) =
     port = 5432,
     database,
     user,
-    password: bodyPassword,
+    password,
     sslmode = 'require',
     connectTimeoutMs = 7000,
   } = req.body || {};
-
-  const password = bodyPassword || process.env.CONNECTIVITY_DEFAULT_PASSWORD;
 
   if (!user) {
     return res.status(400).json({
       ok: false,
       error: 'user is required',
-    });
-  }
-
-  if (!password) {
-    return res.status(400).json({
-      ok: false,
-      error: 'Password is required',
     });
   }
 
@@ -642,24 +615,15 @@ router.post('/api/postgres-schema-metrics', connectivityTestLimiter, async (req,
     database,
     schema = 'public',
     user,
-    password: bodyPassword,
+    password,
     sslmode = 'require',
     connectTimeoutMs = 7000,
   } = req.body || {};
-
-  const password = bodyPassword || process.env.CONNECTIVITY_DEFAULT_PASSWORD;
 
   if (!database || !user) {
     return res.status(400).json({
       ok: false,
       error: 'database and user are required',
-    });
-  }
-
-  if (!password) {
-    return res.status(400).json({
-      ok: false,
-      error: 'Password is required',
     });
   }
 
